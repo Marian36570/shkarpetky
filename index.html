@@ -1,243 +1,93 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Шкарпетки MS Drop - Замовити</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: #fff0f6;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
-      padding: 30px;
-      text-align: center;
-    }
-    h1 {
-      color: #e91e63;
-      margin-bottom: 10px;
-      font-weight: 900;
-    }
-    .price {
-      font-size: 22px;
-      margin-bottom: 20px;
-      color: #e91e63;
-    }
-    .price del {
-      color: #aaa;
-      margin-right: 12px;
-      font-weight: 400;
-    }
-    .images {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-    }
-    .images img {
-      width: 120px;
-      border-radius: 15px;
-      border: 3px solid #e91e63;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      box-shadow: 0 0 8px rgba(233,30,99,0.3);
-    }
-    .images img:hover {
-      transform: scale(1.2);
-      border-color: #ff4081;
-      box-shadow: 0 0 15px rgba(255,64,129,0.7);
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-top: 10px;
-    }
-    input, select {
-      padding: 14px 18px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: 2px solid #e91e63;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-    input:focus, select:focus {
-      border-color: #ff4081;
-      box-shadow: 0 0 8px #ff4081;
-    }
-    button {
-      background: #e91e63;
-      color: white;
-      font-weight: 700;
-      font-size: 20px;
-      border: none;
-      border-radius: 15px;
-      padding: 16px 0;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      box-shadow: 0 5px 15px rgba(233,30,99,0.4);
-    }
-    button:hover {
-      background: #c2185b;
-      box-shadow: 0 6px 18px rgba(194,24,91,0.7);
-    }
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 13px;
-      color: #666;
-    }
-    .timer-container {
-      font-size: 18px;
-      font-weight: 700;
-      color: #e91e63;
-      margin: 25px 0 15px;
-      text-align: center;
-      font-family: 'Arial Black', Arial, sans-serif;
-    }
-    .timer {
-      font-family: monospace;
-      font-size: 28px;
-      margin-left: 10px;
-      display: inline-block;
-      min-width: 120px;
-    }
-    .size-select {
-      font-size: 16px;
-    }
-    .size-table {
-      margin: 15px auto;
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 400px;
-      margin-bottom: 20px;
-      text-align: center;
-      border: 1px solid #e91e63;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .size-table th, .size-table td {
-      border: 1px solid #e91e63;
-      padding: 8px 12px;
-      background: #fff0f6;
-      color: #e91e63;
-    }
-    .size-table th {
-      background: #e91e63;
-      color: white;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Шкарпетки MS Drop</h1>
-
-    <div class="price">
-      <del>1999 грн</del> <strong>1399 грн</strong>
-    </div>
-
-    <div class="images">
-      <img src="original (1).jpg" alt="Шкарпетки MS Drop" />
-    </div>
-
-    <div class="timer-container">
-      Встигни замовити за: <span id="countdown" class="timer"></span>
-    </div>
-
-    <form id="order-form">
-      <input type="text" name="firstName" placeholder="Ім'я" required />
-      <input type="text" name="lastName" placeholder="Прізвище" required />
-      <input type="tel" name="phone" placeholder="Номер телефону" required pattern="[0-9+\- ]{7,15}" />
-
-      <input list="city-list" id="cityInput" name="city" placeholder="Введіть або оберіть місто" required autocomplete="off" />
-      <datalist id="city-list"></datalist>
-
-      <select id="warehouseSelect" name="branch" required>
-        <option value="">Оберіть відділення</option>
-      </select>
-
-      <label for="sizeSelect" style="font-weight:700; color:#e91e63;">Оберіть розмір шкарпеток:</label>
-      <select id="sizeSelect" name="size" class="size-select" required>
-        <option value="">Оберіть розмір</option>
-        <option value="36-39">36-39</option>
-        <option value="40-43">40-43</option>
-        <option value="44-47">44-47</option>
-      </select>
-
-      <button type="submit">Замовити</button>
-    </form>
-
-    <table class="size-table">
-      <thead>
-        <tr>
-          <th>Розмір</th>
-          <th>Європейський</th>
-          <th>Довжина стопи (см)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>36-39</td><td>EU 36-39</td><td>22.5 - 25</td></tr>
-        <tr><td>40-43</td><td>EU 40-43</td><td>25 - 27</td></tr>
-        <tr><td>44-47</td><td>EU 44-47</td><td>27 - 29</td></tr>
-      </tbody>
-    </table>
-
-    <div class="footer">Всі замовлення відправляються через Нову Пошту</div>
-  </div>
-
 <script>
-  const apiKey = 'a249c591d0c7fff13d5bc43044b49d5e';
-  const NP_API_URL = 'https://api.novaposhta.ua/v2.0/json/';
+  emailjs.init('user_UbCgkG_2IXEfH6Fwr');
 
-  let cities = [];
+  // Таймер 8 годин від відкриття сторінки
+  function startTimer(duration, display) {
+    let timer = duration, hours, minutes, seconds;
+    setInterval(function () {
+      hours = Math.floor(timer / 3600);
+      minutes = Math.floor((timer % 3600) / 60);
+      seconds = timer % 60;
 
-  async function loadCities() {
-    const response = await fetch(NP_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        apiKey: apiKey,
-        modelName: "Address",
-        calledMethod: "getCities",
-        methodProperties: {}
-      })
-    });
-    const data = await response.json();
-    if (data.success) {
-      const datalist = document.getElementById('city-list');
-      cities = data.data;
-      datalist.innerHTML = ''; // очищуємо список
-      data.data.forEach(city => {
-        const option = document.createElement('option');
-        option.value = city.Description;
-        option.dataset.ref = city.Ref;
-        datalist.appendChild(option);
-      });
-    }
+      display.textContent = 
+        (hours < 10 ? "0" + hours : hours) + ":" + 
+        (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+        (seconds < 10 ? "0" + seconds : seconds);
+
+      if (--timer < 0) {
+        display.textContent = "Акція завершилась";
+      }
+    }, 1000);
   }
 
-  async function loadWarehouses(cityRef) {
-    const response = await fetch(NP_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        apiKey: apiKey,
-        modelName: "Address",
-        calledMethod: "getWarehouses",
-        methodProperties: { CityRef: cityRef }
-      })
+  window.onload = function () {
+    // Таймер
+    let eightHours = 8 * 3600;
+    let countdown = document.getElementById('countdown');
+    startTimer(eightHours, countdown);
+
+    // Відділення
+    const branches = {
+      "Київ": [
+        "Відділення №1 - вул. Хрещатик, 22",
+        "Відділення №5 - проспект Перемоги, 40",
+        "Відділення №12 - вул. Бульварно-Кудрявська, 15"
+      ],
+      "Львів": [
+        "Відділення №2 - вул. Петра Дорошенка, 12",
+        "Відділення №8 - вул. Сахарова, 18"
+      ],
+      "Одеса": [
+        "Відділення №3 - вул. Дерибасівська, 4",
+        "Відділення №7 - вул. Приморська, 44"
+      ],
+      "Харків": [
+        "Відділення №4 - вул. Сумська, 10",
+        "Відділення №9 - проспект Гагаріна, 56"
+      ]
+    };
+
+    const citySelect = document.getElementById('citySelect');
+    const branchSelect = document.getElementById('branchSelect');
+
+    citySelect.addEventListener('change', () => {
+      let city = citySelect.value;
+      branchSelect.innerHTML = '<option value="" disabled selected>Оберіть відділення</option>';
+      if(branches[city]){
+        branches[city].forEach(branch => {
+          let opt = document.createElement('option');
+          opt.value = branch;
+          opt.textContent = branch;
+          branchSelect.appendChild(opt);
+        });
+      }
     });
-    const data = await response.json();
-    const warehouseSelect = document.getElementById('warehouseSelect');
-    warehouseSelect.innerHTML = '<option value="">Оберіть відділення</option>';
-    if (data
+
+    const form = document.getElementById('order-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = {
+        firstName: this.firstName.value,
+        phone: this.phone.value,
+        city: this.city.value,
+        branch: this.branch.value,
+        size: this.size.value,
+        product: "Шкарпетки MS Drop",
+        price: "1399 грн"
+      };
+
+      emailjs.send('service_jh59n1a', 'template_6ch5tei', formData)
+      .then(() => {
+        alert('Дякуємо за замовлення! Ми з вами зв’яжемося найближчим часом.');
+        form.reset();
+        branchSelect.innerHTML = '<option value="" disabled selected>Оберіть відділення</option>';
+      }, (error) => {
+        alert('Помилка при відправці замовлення. Спробуйте пізніше.');
+        console.error(error);
+      });
+    });
+  };
+</script>
+
 
