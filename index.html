@@ -1,32 +1,171 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Шкарпетки MS Drop - Замовлення</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex; 
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      max-width: 450px;
+      padding: 20px 30px 40px;
+      margin: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    h1 {
+      color: #e91e63;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .price {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .price del {
+      color: #888;
+      margin-right: 10px;
+    }
+    .price strong {
+      color: #e91e63;
+      font-size: 22px;
+    }
+    .images img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px rgba(233,30,99,0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .images img:hover {
+      transform: scale(1.05);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, select, button {
+      padding: 12px 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #e91e63;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus {
+      border-color: #ff4081;
+    }
+    button {
+      background: #e91e63;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: none;
+    }
+    button:hover {
+      background: #c2185b;
+    }
+    .footer {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 15px;
+      color: #666;
+    }
+    #countdown {
+      text-align: center;
+      font-weight: 700;
+      color: #e91e63;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Шкарпетки MS Drop</h1>
+    <div class="price">
+      <del>1999 грн</del> <strong>1399 грн</strong>
+    </div>
+    <div class="images">
+      <img src="original (1).jpg" alt="Шкарпетки MS Drop" />
+    </div>
+
+    <div id="countdown">Залишилось часу: 08:00:00</div>
+
+    <form id="order-form">
+      <input type="text" name="firstName" placeholder="Ім'я" required />
+      <input type="tel" name="phone" placeholder="Номер телефону" required pattern="[0-9+\- ]{7,15}" />
+      
+      <select id="citySelect" name="city" required>
+        <option value="" disabled selected>Оберіть місто</option>
+        <option value="Київ">Київ</option>
+        <option value="Львів">Львів</option>
+        <option value="Одеса">Одеса</option>
+        <option value="Харків">Харків</option>
+      </select>
+      
+      <select id="branchSelect" name="branch" required>
+        <option value="" disabled selected>Оберіть відділення</option>
+      </select>
+
+      <select name="size" required>
+        <option value="" disabled selected>Оберіть розмір</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <button type="submit">Замовити</button>
+    </form>
+    <div class="footer">Всі замовлення відправляються через Нову Пошту</div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
+  // EmailJS init (твій user id)
   emailjs.init('user_UbCgkG_2IXEfH6Fwr');
 
-  // Таймер 8 годин від відкриття сторінки
+  // Таймер 8 годин
   function startTimer(duration, display) {
     let timer = duration, hours, minutes, seconds;
-    setInterval(function () {
+    const interval = setInterval(function () {
       hours = Math.floor(timer / 3600);
       minutes = Math.floor((timer % 3600) / 60);
       seconds = timer % 60;
 
-      display.textContent = 
-        (hours < 10 ? "0" + hours : hours) + ":" + 
-        (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+      display.textContent =
+        (hours < 10 ? "0" + hours : hours) + ":" +
+        (minutes < 10 ? "0" + minutes : minutes) + ":" +
         (seconds < 10 ? "0" + seconds : seconds);
 
       if (--timer < 0) {
+        clearInterval(interval);
         display.textContent = "Акція завершилась";
       }
     }, 1000);
   }
 
   window.onload = function () {
-    // Таймер
     let eightHours = 8 * 3600;
     let countdown = document.getElementById('countdown');
     startTimer(eightHours, countdown);
 
-    // Відділення
     const branches = {
       "Київ": [
         "Відділення №1 - вул. Хрещатик, 22",
@@ -51,11 +190,11 @@
     const branchSelect = document.getElementById('branchSelect');
 
     citySelect.addEventListener('change', () => {
-      let city = citySelect.value;
+      const city = citySelect.value;
       branchSelect.innerHTML = '<option value="" disabled selected>Оберіть відділення</option>';
-      if(branches[city]){
+      if (branches[city]) {
         branches[city].forEach(branch => {
-          let opt = document.createElement('option');
+          const opt = document.createElement('option');
           opt.value = branch;
           opt.textContent = branch;
           branchSelect.appendChild(opt);
@@ -64,7 +203,7 @@
     });
 
     const form = document.getElementById('order-form');
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const formData = {
@@ -78,16 +217,20 @@
       };
 
       emailjs.send('service_jh59n1a', 'template_6ch5tei', formData)
-      .then(() => {
-        alert('Дякуємо за замовлення! Ми з вами зв’яжемося найближчим часом.');
-        form.reset();
-        branchSelect.innerHTML = '<option value="" disabled selected>Оберіть відділення</option>';
-      }, (error) => {
-        alert('Помилка при відправці замовлення. Спробуйте пізніше.');
-        console.error(error);
-      });
+        .then(() => {
+          alert('Дякуємо за замовлення! Ми з вами зв’яжемося найближчим часом.');
+          form.reset();
+          branchSelect.innerHTML = '<option value="" disabled selected>Оберіть відділення</option>';
+        })
+        .catch((error) => {
+          alert('Сталася помилка. Спробуйте пізніше.');
+          console.error(error);
+        });
     });
   };
 </script>
+</body>
+</html>
+
 
 
