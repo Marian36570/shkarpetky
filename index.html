@@ -3,215 +3,241 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Стильні шкарпетки — Акція!</title>
+  <title>Шкарпетки MS Drop - Замовити</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: #f0f0f5;
-      margin: 0; padding: 0;
+      background: #fff0f6;
       color: #333;
-    }
-    header {
-      background: #ff4081;
-      color: white;
+      margin: 0;
       padding: 20px;
+    }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+      padding: 30px;
       text-align: center;
     }
     h1 {
-      margin: 0;
-      font-weight: 700;
-    }
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .products {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .product-card {
-      background: #fff;
-      border: 2px solid #ff4081;
-      border-radius: 15px;
-      padding: 15px;
-      width: 250px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgb(255 64 129 / 0.3);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    .product-card:hover {
-      transform: scale(1.05);
-    }
-    .product-card img {
-      max-width: 100%;
-      border-radius: 12px;
-    }
-    .product-name {
-      font-weight: 600;
-      margin: 10px 0 5px;
-      font-size: 18px;
-    }
-    .price-old {
-      text-decoration: line-through;
-      color: #999;
-      font-size: 14px;
-    }
-    .price-new {
-      color: #ff4081;
-      font-weight: 700;
-      font-size: 20px;
+      color: #e91e63;
       margin-bottom: 10px;
-      display: block;
+      font-weight: 900;
+    }
+    .price {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #e91e63;
+    }
+    .price del {
+      color: #aaa;
+      margin-right: 12px;
+      font-weight: 400;
+    }
+    .images {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    .images img {
+      width: 120px;
+      border-radius: 15px;
+      border: 3px solid #e91e63;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 8px rgba(233,30,99,0.3);
+    }
+    .images img:hover {
+      transform: scale(1.2);
+      border-color: #ff4081;
+      box-shadow: 0 0 15px rgba(255,64,129,0.7);
     }
     form {
-      margin-top: 30px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 18px;
+      margin-top: 10px;
     }
-    input, select, button {
-      padding: 12px;
+    input, select {
+      padding: 14px 18px;
       font-size: 16px;
-      border-radius: 10px;
-      border: 1.5px solid #ff4081;
+      border-radius: 12px;
+      border: 2px solid #e91e63;
       outline: none;
       transition: border-color 0.3s ease;
     }
     input:focus, select:focus {
-      border-color: #c2185b;
+      border-color: #ff4081;
+      box-shadow: 0 0 8px #ff4081;
     }
     button {
-      background: #ff4081;
+      background: #e91e63;
       color: white;
       font-weight: 700;
+      font-size: 20px;
       border: none;
+      border-radius: 15px;
+      padding: 16px 0;
       cursor: pointer;
       transition: background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(233,30,99,0.4);
     }
     button:hover {
       background: #c2185b;
+      box-shadow: 0 6px 18px rgba(194,24,91,0.7);
     }
     .footer {
       text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #777;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+    .timer-container {
+      font-size: 18px;
+      font-weight: 700;
+      color: #e91e63;
+      margin: 25px 0 15px;
+      text-align: center;
+      font-family: 'Arial Black', Arial, sans-serif;
+    }
+    .timer {
+      font-family: monospace;
+      font-size: 28px;
+      margin-left: 10px;
+      display: inline-block;
+      min-width: 120px;
+    }
+    .size-select {
+      font-size: 16px;
+    }
+    .size-table {
+      margin: 15px auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+      text-align: center;
+      border: 1px solid #e91e63;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .size-table th, .size-table td {
+      border: 1px solid #e91e63;
+      padding: 8px 12px;
+      background: #fff0f6;
+      color: #e91e63;
+    }
+    .size-table th {
+      background: #e91e63;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Купуй стильні шкарпетки з акцією!</h1>
-  </header>
   <div class="container">
-    <div class="products">
-      <div class="product-card" data-product="Набір шкарпеток яскравих 5 пар" data-price="199">
-        <img src="https://msdrop.com.ua/image/cache/catalog/socks/socks_colorful-600x600.jpg" alt="Яскраві шкарпетки" />
-        <div class="product-name">Набір яскравих шкарпеток, 5 пар</div>
-        <span class="price-old">Було 250 грн</span>
-        <span class="price-new">Тепер 199 грн</span>
-      </div>
-      <div class="product-card" data-product="Шкарпетки класичні білі 3 пари" data-price="149">
-        <img src="https://msdrop.com.ua/image/cache/catalog/socks/socks_white-600x600.jpg" alt="Класичні білі шкарпетки" />
-        <div class="product-name">Шкарпетки класичні білі, 3 пари</div>
-        <span class="price-old">Було 180 грн</span>
-        <span class="price-new">Тепер 149 грн</span>
-      </div>
-      <div class="product-card" data-product="Спортивні шкарпетки 2 пари" data-price="159">
-        <img src="https://msdrop.com.ua/image/cache/catalog/socks/socks_sport-600x600.jpg" alt="Спортивні шкарпетки" />
-        <div class="product-name">Спортивні шкарпетки, 2 пари</div>
-        <span class="price-old">Було 200 грн</span>
-        <span class="price-new">Тепер 159 грн</span>
-      </div>
+    <h1>Шкарпетки MS Drop</h1>
+
+    <div class="price">
+      <del>1999 грн</del> <strong>1399 грн</strong>
+    </div>
+
+    <div class="images">
+      <img src="original (1).jpg" alt="Шкарпетки MS Drop" />
+    </div>
+
+    <div class="timer-container">
+      Встигни замовити за: <span id="countdown" class="timer"></span>
     </div>
 
     <form id="order-form">
-      <h2>Оформити замовлення</h2>
       <input type="text" name="firstName" placeholder="Ім'я" required />
-      <input type="tel" name="phone" placeholder="Телефон" required pattern="[0-9+\- ]{7,15}" />
-      
+      <input type="text" name="lastName" placeholder="Прізвище" required />
+      <input type="tel" name="phone" placeholder="Номер телефону" required pattern="[0-9+\- ]{7,15}" />
+
       <input list="city-list" id="cityInput" name="city" placeholder="Введіть або оберіть місто" required autocomplete="off" />
       <datalist id="city-list"></datalist>
 
       <select id="warehouseSelect" name="branch" required>
-        <option value="">Оберіть відділення Нової Пошти</option>
+        <option value="">Оберіть відділення</option>
       </select>
 
-      <input type="text" name="product" id="productInput" readonly style="background:#eee;"/>
-      <input type="text" name="price" id="priceInput" readonly style="background:#eee;"/>
+      <label for="sizeSelect" style="font-weight:700; color:#e91e63;">Оберіть розмір шкарпеток:</label>
+      <select id="sizeSelect" name="size" class="size-select" required>
+        <option value="">Оберіть розмір</option>
+        <option value="36-39">36-39</option>
+        <option value="40-43">40-43</option>
+        <option value="44-47">44-47</option>
+      </select>
 
       <button type="submit">Замовити</button>
     </form>
-    <div class="footer">
-      Всі замовлення обробляються через Нову Пошту.<br/>
-      Гарантія якості та швидка доставка!
-    </div>
+
+    <table class="size-table">
+      <thead>
+        <tr>
+          <th>Розмір</th>
+          <th>Європейський</th>
+          <th>Довжина стопи (см)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>36-39</td><td>EU 36-39</td><td>22.5 - 25</td></tr>
+        <tr><td>40-43</td><td>EU 40-43</td><td>25 - 27</td></tr>
+        <tr><td>44-47</td><td>EU 44-47</td><td>27 - 29</td></tr>
+      </tbody>
+    </table>
+
+    <div class="footer">Всі замовлення відправляються через Нову Пошту</div>
   </div>
 
-  <script>
-    const apiKey = 'a249c591d0c7fff13d5bc43044b49d5e';
-    const NP_API_URL = 'https://api.novaposhta.ua/v2.0/json/';
-    let cities = [];
+<script>
+  const apiKey = 'a249c591d0c7fff13d5bc43044b49d5e';
+  const NP_API_URL = 'https://api.novaposhta.ua/v2.0/json/';
 
-    async function loadCities() {
-      const response = await fetch(NP_API_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          apiKey,
-          modelName: "Address",
-          calledMethod: "getCities",
-          methodProperties: {}
-        })
+  let cities = [];
+
+  async function loadCities() {
+    const response = await fetch(NP_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        apiKey: apiKey,
+        modelName: "Address",
+        calledMethod: "getCities",
+        methodProperties: {}
+      })
+    });
+    const data = await response.json();
+    if (data.success) {
+      const datalist = document.getElementById('city-list');
+      cities = data.data;
+      datalist.innerHTML = ''; // очищуємо список
+      data.data.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city.Description;
+        option.dataset.ref = city.Ref;
+        datalist.appendChild(option);
       });
-      const data = await response.json();
-      if(data.success){
-        const datalist = document.getElementById('city-list');
-        cities = data.data;
-        cities.forEach(city => {
-          const option = document.createElement('option');
-          option.value = city.Description;
-          option.dataset.ref = city.Ref;
-          datalist.appendChild(option);
-        });
-      }
     }
+  }
 
-    async function loadWarehouses(cityRef){
-      const response = await fetch(NP_API_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          apiKey,
-          modelName: "Address",
-          calledMethod: "getWarehouses",
-          methodProperties: { CityRef: cityRef }
-        })
-      });
-      const data = await response.json();
-      const select = document.getElementById('warehouseSelect');
-      select.innerHTML = '<option value="">Оберіть відділення Нової Пошти</option>';
-      if(data.success){
-        data.data.forEach(wh => {
-          const option = document.createElement('option');
-          option.value = wh.Description;
-          option.textContent = wh.Description;
-          select.appendChild(option);
-        });
-      }
-    }
+  async function loadWarehouses(cityRef) {
+    const response = await fetch(NP_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        apiKey: apiKey,
+        modelName: "Address",
+        calledMethod: "getWarehouses",
+        methodProperties: { CityRef: cityRef }
+      })
+    });
+    const data = await response.json();
+    const warehouseSelect = document.getElementById('warehouseSelect');
+    warehouseSelect.innerHTML = '<option value="">Оберіть відділення</option>';
+    if (data
 
-    document.getElementById('cityInput').addEventListener('input', e => {
-      const cityName = e.target.value;
-      const cityObj = cities.find(c => c.Description.toLowerCase() === cityName.toLowerCase());
-      if(cityObj){
-        loadWarehouses(cityObj.Ref);
-      } else {
-        document.getElementById('warehouseSelect').innerHTML = '<option value="">Обер
