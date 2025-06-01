@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Стильні шкарпетки — Акція!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f0f0f5;
+      margin: 0; padding: 0;
+      color: #333;
+    }
+    header {
+      background: #ff4081;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-weight: 700;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .products {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product-card {
+      background: #fff;
+      border: 2px solid #ff4081;
+      border-radius: 15px;
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgb(255 64 129 / 0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+    .product-card img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .product-name {
+      font-weight: 600;
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+    .price-old {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 14px;
+    }
+    .price-new {
+      color: #ff4081;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, select, button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1.5px solid #ff4081;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus {
+      border-color: #c2185b;
+    }
+    button {
+      background: #ff4081;
+      color: white;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #c2185b;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Купуй стильні шкарпетки з акцією!</h1>
+  </header>
+  <div class="container">
+    <div class="products">
+      <div class="product-card" data-product="Набір шкарпеток яскравих 5 пар" data-price="199">
+        <img src="https://msdrop.com.ua/image/cache/catalog/socks/socks_colorful-600x600.jpg" alt="Яскраві шкарпетки" />
+        <div class="product-name">Набір яскравих шкарпеток, 5 пар</div>
+        <span class="price-old">Було 250 грн</span>
+        <span class="price-new">Тепер 199 грн</span>
+      </div>
+      <div class="product-card" data-product="Шкарпетки класичні білі 3 пари" data-price="149">
+        <img src="https://msdrop.com.ua/image/cache/catalog/socks/socks_white-600x600.jpg" alt="Класичні білі шкарпетки" />
+        <div class="product-name">Шкарпетки класичні білі, 3 пари</div>
+        <span class="price-old">Було 180 грн</span>
+        <span class="price-new">Тепер 149 грн</span>
+      </div>
+      <div class="product-card" data-product="Спортивні шкарпетки 2 пари" data-price="159">
+        <img src="https://msdrop.com.ua/image/cache/catalog/socks/socks_sport-600x600.jpg" alt="Спортивні шкарпетки" />
+        <div class="product-name">Спортивні шкарпетки, 2 пари</div>
+        <span class="price-old">Було 200 грн</span>
+        <span class="price-new">Тепер 159 грн</span>
+      </div>
+    </div>
+
+    <form id="order-form">
+      <h2>Оформити замовлення</h2>
+      <input type="text" name="firstName" placeholder="Ім'я" required />
+      <input type="tel" name="phone" placeholder="Телефон" required pattern="[0-9+\- ]{7,15}" />
+      
+      <input list="city-list" id="cityInput" name="city" placeholder="Введіть або оберіть місто" required autocomplete="off" />
+      <datalist id="city-list"></datalist>
+
+      <select id="warehouseSelect" name="branch" required>
+        <option value="">Оберіть відділення Нової Пошти</option>
+      </select>
+
+      <input type="text" name="product" id="productInput" readonly style="background:#eee;"/>
+      <input type="text" name="price" id="priceInput" readonly style="background:#eee;"/>
+
+      <button type="submit">Замовити</button>
+    </form>
+    <div class="footer">
+      Всі замовлення обробляються через Нову Пошту.<br/>
+      Гарантія якості та швидка доставка!
+    </div>
+  </div>
+
+  <script>
+    const apiKey = 'a249c591d0c7fff13d5bc43044b49d5e';
+    const NP_API_URL = 'https://api.novaposhta.ua/v2.0/json/';
+    let cities = [];
+
+    async function loadCities() {
+      const response = await fetch(NP_API_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          apiKey,
+          modelName: "Address",
+          calledMethod: "getCities",
+          methodProperties: {}
+        })
+      });
+      const data = await response.json();
+      if(data.success){
+        const datalist = document.getElementById('city-list');
+        cities = data.data;
+        cities.forEach(city => {
+          const option = document.createElement('option');
+          option.value = city.Description;
+          option.dataset.ref = city.Ref;
+          datalist.appendChild(option);
+        });
+      }
+    }
+
+    async function loadWarehouses(cityRef){
+      const response = await fetch(NP_API_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          apiKey,
+          modelName: "Address",
+          calledMethod: "getWarehouses",
+          methodProperties: { CityRef: cityRef }
+        })
+      });
+      const data = await response.json();
+      const select = document.getElementById('warehouseSelect');
+      select.innerHTML = '<option value="">Оберіть відділення Нової Пошти</option>';
+      if(data.success){
+        data.data.forEach(wh => {
+          const option = document.createElement('option');
+          option.value = wh.Description;
+          option.textContent = wh.Description;
+          select.appendChild(option);
+        });
+      }
+    }
+
+    document.getElementById('cityInput').addEventListener('input', e => {
+      const cityName = e.target.value;
+      const cityObj = cities.find(c => c.Description.toLowerCase() === cityName.toLowerCase());
+      if(cityObj){
+        loadWarehouses(cityObj.Ref);
+      } else {
+        document.getElementById('warehouseSelect').innerHTML = '<option value="">Обер
